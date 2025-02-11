@@ -35,6 +35,11 @@ const main = async () => {
       source[randomInteger()] = 123;
       destination = source.slice();
     })
+    .add("Avec Array.from", () => {
+      source = [];
+      source[randomInteger()] = 123;
+      destination = Array.from(source);
+    })
     .add("Avec structuredClone", () => {
       source = [];
       source[randomInteger()] = 123;
