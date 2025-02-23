@@ -2,53 +2,64 @@ import { Bench } from "tinybench";
 
 const SIZE = 100_000;
 
-const randomInteger = (max = SIZE) =>
-  Math.floor(Math.random() * max);
+const randomInteger = (max = SIZE) => Math.floor(Math.random() * max);
 
 const main = async () => {
+  let source: number[];
+  let clone: number[];
+
   const bench = new Bench({
     time: 3_000,
     warmupTime: 1000,
   });
 
-  console.log('Bench starting: clone array');
+  const setup = () => {
+    source = []; //new Array(SIZE);
+    source[randomInteger()] = 123;
+  }
 
-  let source: number[] = [];
-  let destination: number[] = [];
+  console.log("Bench starting: clone array");
 
   bench
     .add("Avec une boucle", () => {
-      source = [];
-      source[randomInteger()] = 123;
-      const destination: number[] = [];
+      setup();
+      clone = [];
       for (const element of source) {
-        destination.push(element);
+        clone.push(element);
       }
     })
     .add("Avec un spread", () => {
-      source = [];
-      source[randomInteger()] = 123;
-      destination = [...source];
+      setup();
+      clone = [...source];
     })
     .add("Avec un slice", () => {
-      source = [];
-      source[randomInteger()] = 123;
-      destination = source.slice();
+      setup();
+      clone = source.slice();
     })
     .add("Avec Array.from", () => {
-      source = [];
-      source[randomInteger()] = 123;
-      destination = Array.from(source);
+      setup();
+      clone = Array.from(source);
     })
     .add("Avec structuredClone", () => {
-      source = [];
-      source[randomInteger()] = 123;
-      destination = structuredClone(source);
+      setup();
+      clone = structuredClone(source);
+    })
+    .add("Avec Object.assign", () => {
+      setup();
+      clone = [];
+      Object.assign(clone, source);
     });
 
   await bench.run();
 
   console.table(bench.table());
-
 };
 main();
+
+type Node<T> = {
+  value: T,
+  next?: Node<T>
+}
+
+const data: Node<number> = {value: 42, next: { value: 123}}
+

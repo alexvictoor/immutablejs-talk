@@ -5,7 +5,7 @@ const randomInteger = (max: number = Number.MAX_SAFE_INTEGER) =>
 
 const generateSquareMatrix = (n: number) =>
   Array.from({ length: n }, () =>
-    Array.from({ length: n }, () => randomInteger(100))
+    Array.from({ length: n }, () => randomInteger(10))
   );
 
 const main = async () => {
