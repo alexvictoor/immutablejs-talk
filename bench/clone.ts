@@ -14,7 +14,7 @@ const main = async () => {
   });
 
   const setup = () => {
-    source = []; //new Array(SIZE);
+    source = [];
     source[randomInteger()] = 123;
   }
 
@@ -55,11 +55,4 @@ const main = async () => {
   console.table(bench.table());
 };
 main();
-
-type Node<T> = {
-  value: T,
-  next?: Node<T>
-}
-
-const data: Node<number> = {value: 42, next: { value: 123}}
 
