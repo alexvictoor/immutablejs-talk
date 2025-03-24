@@ -8,4 +8,4 @@ const generateSquareMatrix = (n) =>
 
 const matrix = generateSquareMatrix(5);
 
-%DebugPrint(matrix);
+%DebugPrint(matrix[0]);
